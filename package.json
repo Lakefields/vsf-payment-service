@@ -1,0 +1,11 @@
+{
+  "name": "@getnoticed/vsf-payment-service",
+  "version": "1.0.0",
+  "description": "Payment service for Vue Storefront",
+  "main": "index.js",
+  "author": "Get.Noticed",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}
