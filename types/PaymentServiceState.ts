@@ -1,30 +1,27 @@
-// This object should represent structure of your modules Vuex state
-// It's a good practice is to name this interface accordingly to the KET (for example mailchimpState)
-interface Issuer {
-  name: string
-  id: string
-  image: object
-}
-
-interface Method {
+export interface Method {
   title: string
   code: string,
   image: object,
-  cost: number
-  costInclTax: number
-  default: boolean
-  offline: boolean
+  pricing?: object
+  pspMethod: boolean,
+  issuers?: object
 }
-
-// https://stackoverflow.com/questions/25469244/how-can-i-define-an-interface-for-an-array-of-objects-with-typescript
-interface Issuers extends Array<Issuer> {}
 
 interface Methods extends Array<Method> {}
 
+export interface FetchMethodsParams {
+  locale: string
+  amount: object
+}
+
+export interface PaymentMethodData {
+  paymentMethod: object 
+  paymentMethodAdditionalData: string
+}
+
 export interface PaymentServiceState {
   payment_methods: Methods
-  issuers: Issuers
-  issuer: Issuer | null
-  paymentMethod: string
+  issuer: object
+  paymentMethodData: PaymentMethodData
   paymentStatusFetched: boolean
 }

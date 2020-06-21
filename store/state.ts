@@ -2,8 +2,10 @@ import { PaymentServiceState } from '../types/PaymentServiceState'
 
 export const state: PaymentServiceState = {
   payment_methods: [],
-  issuers: [],
   issuer: null,
-  paymentMethod: '',
+  paymentMethodData: {
+    paymentMethod: {},
+    paymentMethodAdditionalData: ''
+  },
   paymentStatusFetched: false
 }
