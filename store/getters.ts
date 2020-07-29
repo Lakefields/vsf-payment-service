@@ -16,5 +16,8 @@ export const getters: GetterTree<PaymentServiceState, any> = {
   },
   getPaymentStatusFetched (state) {
     return state.paymentStatusFetched
+  },
+  getPspMethods (state) {
+    return pickBy(state.payment_methods, (paymentMethod) => { return (paymentMethod.pspMethod) })
   }
 }
