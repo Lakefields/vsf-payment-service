@@ -85,6 +85,7 @@ We used the default theme, below we'll sum up the changes that are necessary to 
 # Integration into the capybara theme (tested on version 1.0.2)
 
 ### Integration of bank selection.
+![bank-selection](https://user-images.githubusercontent.com/33068778/90170562-ebe32e80-dda8-11ea-9234-4585ef5fd1e7.png)
 * Open the file `components/organisms/o-payment.vue` in the theme.
 * Add the following code after the payment method selection block 
 
