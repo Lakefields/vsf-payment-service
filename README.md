@@ -82,6 +82,72 @@ We used the default theme, below we'll sum up the changes that are necessary to 
 
 ![order-review](https://user-images.githubusercontent.com/26965893/60960038-9026b600-a309-11e9-9f94-0290c63e7c7c.png)
 
+# Integration into the capybara theme (tested on version 1.0.2)
+
+### Integration of bank selection.
+* Open the file `components/organisms/o-payment.vue` in the theme.
+* Add the following code after the payment method selection block 
+
+```vue
+...
+<div class="form__radio-group">
+<SfRadio
+  v-for="method in paymentMethods"
+  :key="method.code"
+  v-model="payment.paymentMethod"
+  :label="method.title ? method.title : method.name"
+  :value="method.code"
+  name="payment-method"
+  class="form__radio payment-method"
+  @input="changePaymentMethod"
+/>
+</div>
+<MIdealIssuers v-if="isIdeal" />
+...
+```
+```vuejs
+...
+import MIdealIssuers from '@getnoticed/vsf-payment-service/components/molecules/m-ideal-issuers'
+```
+```vuejs
+...
+components: {
+MIdealIssuers
+},
+mixins: [Payment, MIdealIssuers],
+```
+
+### Disabling redirection to Thank You page and adding a loader until the client is redirected to the mollie payment gateway.
+* Open the file `pages/Checkout.vue` in the theme.
+* Add the following code 
+```vuejs
+...
+methods: {
+    async onAfterPlaceOrder (payload) {
+      debugger
+      this.confirmation = payload.confirmation
+      // Prevented redirect to ThankYou page
+      // this.$store.dispatch('checkout/setThankYouPage', true)
+      this.$store.dispatch('user/getOrdersHistory', { refresh: true, useCache: true })
+      Logger.debug(payload.order)()
+    },
+    placeOrder () {
+      this.checkConnection({ online: typeof navigator !== 'undefined' ? navigator.onLine : true })
+      if (this.checkStocks()) {
+        // Display loader before going to payment gateway
+        this.$store.dispatch('checkout/placeOrder', { order: this.prepareOrder() }).then(() => {
+          this.$bus.$emit(
+            'notification-progress-start',
+            this.$t('Processing order...')
+          )
+        })
+      } else {
+        this.notifyNotAvailable()
+      }
+    }
+  }
+```
+
 # Manage payment methods
 To enable payment methods in your Vue Storefront checkout you have to follow these steps:
 
