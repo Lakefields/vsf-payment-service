@@ -124,9 +124,9 @@ export default {
       this.hasPaymentResult = true
       this.paymentStatus = result.payment.status
 
-      let successPaymentMessage = 'Your payment for this order is successfull, thank you for your purchase. We\'ll send the order confirmation and invoice to ' + this.order.customer_email + ' in a few moments'
-      let pendingPaymentMessage = 'Your payment details for this order is pending, when we receive more information from the payment provider we will automatically update the payment status and inform you about it by email at ' + this.order.customer_email
-      let failedPaymentMessage = 'Your payment for this order has failed.'
+      let successPaymentMessage = i18n.t('Your payment for this order is successfull, thank you for your purchase. We\'ll send the order confirmation and invoice to ') + this.order.customer_email + i18n.t(' in a few moments')
+      let pendingPaymentMessage = i18n.t('Your payment details for this order is pending, when we receive more information from the payment provider we will automatically update the payment status and inform you about it by email at ') + this.order.customer_email
+      let failedPaymentMessage = i18n.t('Your payment for this order has failed.')
 
       if (this.isPaymentSuccess()) {
         this.paymentGroupStatus = 'success'
