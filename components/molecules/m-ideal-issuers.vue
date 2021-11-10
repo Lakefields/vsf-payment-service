@@ -44,9 +44,6 @@ export default {
       paymentMethods: 'payment-service/getPspMethods',
       getIssuers: 'payment-service/getIssuers'
     }),
-    payment () {
-      return this.$store.state.checkout.paymentDetails
-    },
     idealIssuers () {
       return this.getIssuers.map((item) => {
         return {
@@ -56,7 +53,7 @@ export default {
       })
     },
     isIdeal () {
-      return (this.payment.paymentMethod === 'ideal')
+      return (this.paymentDetails.paymentMethod === 'ideal')
     }
   },
   methods: {
