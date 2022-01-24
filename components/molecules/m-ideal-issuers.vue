@@ -63,7 +63,7 @@ export default {
           return this.paymentMethods[i].code;
         }
       }
-      return 'ideal';
+      return '';
     },
     setIdealIssuer () {
       this.$bus.$emit('checkout-payment-method-changed', { issuer: this.iDealIssuer })
