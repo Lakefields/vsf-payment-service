@@ -53,10 +53,20 @@ export default {
       })
     },
     isIdeal () {
-      return (this.paymentDetails.paymentMethod === 'ideal')
+      return (this.getPaymentMethodCode() === 'ideal')
     }
   },
   methods: {
+    getPaymentMethodCode () {
+      for (let i = 0; i < this.paymentMethods.length; i++) {
+        if (this.paymentMethods[i].code === this.payment.paymentMethod) {
+          return this.paymentMethods[i].code;
+        }
+      }
+      return {
+        name: ''
+      }
+    },
     setIdealIssuer () {
       this.$bus.$emit('checkout-payment-method-changed', { issuer: this.iDealIssuer })
     }
