@@ -1,6 +1,6 @@
 {
   "name": "@getnoticed/vsf-payment-service",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Payment service for Vue Storefront",
   "main": "index.js",
   "author": "Get.Noticed",
