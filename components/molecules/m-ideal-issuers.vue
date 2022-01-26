@@ -73,7 +73,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@storefront-ui/shared/styles/helpers/breakpoints";
+
 .m-ideal-issuers {
   width: 100%;
+
+  ::v-deep .sf-select__dropdown {
+    overflow-y: scroll !important;
+    .sf-select__cancel {
+      @include for-mobile {
+        display: none;
+      }
+    }
+  }
+
+  ::v-deep .sf-select__options {
+    overflow: initial !important;
+  }
 }
 </style>
