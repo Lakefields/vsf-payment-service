@@ -11,7 +11,7 @@
           />
           <h2 class="category-title">
             {{ $t('Order status for Order ') + ' # ' + order.increment_id }}
-            <span v-if="hasPaymentResult" :class="['status-label', paymentGroupStatus]">{{ paymentStatus }}</span>
+            <span v-if="hasPaymentResult" :class="['status-label', paymentGroupStatus]">{{ $t(paymentStatus) }}</span>
           </h2>
         </div>
       </header>
@@ -38,7 +38,7 @@
           <div class="row">
             <div class="col-md-6 pl20 pr20">
               <p>{{ $t(fetchPaymentStatusFailMessage) }}</p>
-              <a href="/">Return to homepage</a>
+              <a href="/">{{ $t('Return to homepage') }}</a>
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@ export default {
         }
         this.$store.commit('payment-service/SET_PAYMENT_STATUS_FETCHED', true)
         this.setPaymentStatus(response.result)
-      })            
+      })
       .catch((err) => {
         this.setError(err.message)
       })
@@ -124,9 +124,9 @@ export default {
       this.hasPaymentResult = true
       this.paymentStatus = result.payment.status
 
-      let successPaymentMessage = 'Your payment for this order is successfull, thank you for your purchase. We\'ll send the order confirmation and invoice to ' + this.order.customer_email + ' in a few moments'
-      let pendingPaymentMessage = 'Your payment details for this order is pending, when we receive more information from the payment provider we will automatically update the payment status and inform you about it by email at ' + this.order.customer_email
-      let failedPaymentMessage = 'Your payment for this order has failed.'
+      let successPaymentMessage = i18n.t('Your payment for this order is successfull, thank you for your purchase. We will send the order confirmation and invoice to {{email}} in a few moments.').replace('{{email}}', this.order.customer_email)
+      let pendingPaymentMessage = i18n.t('Your payment details for this order is pending, when we receive more information from the payment provider we will automatically update the payment status and inform you about it by email at {{email}}').replace('{{email}}', this.order.customer_email)
+      let failedPaymentMessage = i18n.t('Your payment for this order has failed.')
 
       if (this.isPaymentSuccess()) {
         this.paymentGroupStatus = 'success'

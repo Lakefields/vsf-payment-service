@@ -13,14 +13,14 @@ export const actions: ActionTree<PaymentServiceState, any> = {
     try {
       const fetchPaymentMethods = await fetch(rootState.config.paymentService.endpoint + '/payment-methods')
       const paymentMethodsJson = await fetchPaymentMethods.json()
-      
+
       if (paymentMethodsJson.count === 0) {
         throw new Error('No payment methods configured')
       }
       let paymentMethods = []
       let backendEnabledPaymentMethods = rootState.config.orders.payment_methods_mapping
       paymentMethodsJson._embedded.methods.forEach(method => {
-        if(has(backendEnabledPaymentMethods, method.id)) {
+        if (has(backendEnabledPaymentMethods, method.id)) {
           let paymentMethodConfig = {
             title: method.description,
             code: method.id,
@@ -162,5 +162,5 @@ export const actions: ActionTree<PaymentServiceState, any> = {
     dispatch('checkout/setThankYouPage', false, {root: true})
     router.push(localizedRoute('/', redirectUrl))
   }
-  
+
 }

@@ -44,9 +44,6 @@ export default {
       paymentMethods: 'payment-service/getPspMethods',
       getIssuers: 'payment-service/getIssuers'
     }),
-    payment () {
-      return this.$store.state.checkout.paymentDetails
-    },
     idealIssuers () {
       return this.getIssuers.map((item) => {
         return {
@@ -56,10 +53,18 @@ export default {
       })
     },
     isIdeal () {
-      return (this.payment.paymentMethod === 'ideal')
+      return (this.getPaymentMethodCode() === 'ideal')
     }
   },
   methods: {
+    getPaymentMethodCode () {
+      for (let i = 0; i < this.paymentMethods.length; i++) {
+        if (this.paymentMethods[i].code === this.payment.paymentMethod) {
+          return this.paymentMethods[i].code;
+        }
+      }
+      return '';
+    },
     setIdealIssuer () {
       this.$bus.$emit('checkout-payment-method-changed', { issuer: this.iDealIssuer })
     }
@@ -68,7 +73,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@storefront-ui/shared/styles/helpers/breakpoints";
+
 .m-ideal-issuers {
   width: 100%;
+
+  ::v-deep .sf-select__dropdown {
+    overflow-y: scroll !important;
+    .sf-select__cancel {
+      @include for-mobile {
+        display: none;
+      }
+    }
+  }
+
+  ::v-deep .sf-select__options {
+    overflow: initial !important;
+  }
 }
 </style>
